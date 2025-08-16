@@ -1,0 +1,5 @@
+text = input("Enter a string: " )
+a = input("Enter a character to replace: ")
+b = input("new word ")
+text = text.replace(a, b)
+print("updated string",text)
