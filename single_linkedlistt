@@ -1,0 +1,129 @@
+# Program: Singly Linked List Implementation using Python
+# Subject: Data Structures and Programming (DSP)
+
+class Node:
+    """Node class representing each element in the linked list"""
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class SinglyLinkedList:
+    """Singly Linked List class with common operations"""
+    def __init__(self):
+        self.head = None
+
+    # Insert at beginning
+    def insert_beginning(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+        print("Node inserted at the beginning successfully.")
+
+    # Insert at end
+    def insert_end(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            temp = self.head
+            while temp.next:
+                temp = temp.next
+            temp.next = new_node
+        print("Node inserted at the end successfully.")
+
+    # Insert at a specific position
+    def insert_position(self, data, pos):
+        new_node = Node(data)
+        if pos == 1:
+            new_node.next = self.head
+            self.head = new_node
+            print(f"Node inserted at position {pos} successfully.")
+            return
+
+        temp = self.head
+        count = 1
+        while temp is not None and count < pos - 1:
+            temp = temp.next
+            count += 1
+
+        if temp is None:
+            print("Position out of range.")
+        else:
+            new_node.next = temp.next
+            temp.next = new_node
+            print(f"Node inserted at position {pos} successfully.")
+
+    # Delete a node by value
+    def delete_node(self, value):
+        temp = self.head
+
+        if temp is None:
+            print("List is empty.")
+            return
+
+        # If head node itself holds the value
+        if temp.data == value:
+            self.head = temp.next
+            print(f"Node with value {value} deleted successfully.")
+            return
+
+        prev = None
+        while temp and temp.data != value:
+            prev = temp
+            temp = temp.next
+
+        if temp is None:
+            print("Value not found in list.")
+            return
+
+        prev.next = temp.next
+        print(f"Node with value {value} deleted successfully.")
+
+    # Display the linked list
+    def display(self):
+        if self.head is None:
+            print("List is empty.")
+            return
+        temp = self.head
+        print("Linked List:", end=" ")
+        while temp:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("None")
+
+
+# --- Main Program (Menu Driven) ---
+if __name__ == "__main__":
+    sll = SinglyLinkedList()
+
+    while True:
+        print("\n--- Singly Linked List Operations ---")
+        print("1. Insert at Beginning")
+        print("2. Insert at End")
+        print("3. Insert at Position")
+        print("4. Delete Node")
+        print("5. Display List")
+        print("6. Exit")
+        choice = int(input("Enter your choice: "))
+
+        if choice == 1:
+            value = int(input("Enter value to insert: "))
+            sll.insert_beginning(value)
+        elif choice == 2:
+            value = int(input("Enter value to insert: "))
+            sll.insert_end(value)
+        elif choice == 3:
+            value = int(input("Enter value to insert: "))
+            pos = int(input("Enter position to insert at: "))
+            sll.insert_position(value, pos)
+        elif choice == 4:
+            value = int(input("Enter value to delete: "))
+            sll.delete_node(value)
+        elif choice == 5:
+            sll.display()
+        elif choice == 6:
+            print("Exiting program...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
